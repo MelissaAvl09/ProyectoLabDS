@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -70,9 +70,9 @@
                             </a>
                             <div class="collapse" id="collapseLibros" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="GestionarLibro.html">Libros</a>
-                                    <a class="nav-link" href="GestionarAutor.html">Autores</a>
-                                    <a class="nav-link" href="GestionarEditorial.html">Editoriales</a>
+                                    <a class="nav-link" >Libros</a>
+                                    <a class="nav-link" th:href="@{/gestionar-autores}">Autores</a>
+                                    <a class="nav-link" th:href="@{/gestionar-editoriales}">Editoriales</a>
                                 </nav>
                             </div>
                         </div>                        
@@ -86,48 +86,58 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Agregar Autor</h1>
+                        <h1 class="mt-4" th:text="${autor == null ? 'Agregar Autor' : 'Modificar Autor'}"></h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a href="GestionarAutor.html">Gestión de Autores</a></li>
-                            <li class="breadcrumb-item active">Agregar Autor</li>
+                            <li class="breadcrumb-item"><a th:href="@{/gestionar-autores}">Gestión de Autores</a></li>
+                            <li class="breadcrumb-item active" th:text="${autor == null ? 'Agregar Autor' : 'Modificar Autor'}"></li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                                <form>
+                                <form th:action="@{${autor == null ? '/guardar-autor' : '/actualizar-autor'}}"  method="post" >
                                     <div class="row">
                                         <!-- Campo: Nombre -->
                                         <div class="col-md-6 mb-3">
-                                            <label for="nombre" class="form-label">Nombre</label>
-                                            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingresa el nombre" required>
+                                            <label for="nombreAutor" class="form-label">Nombre</label>
+                                            <input type="text" class="form-control" id="nombreAutor" name="nombreAutor" placeholder="Ingresa el nombre"
+                                                   th:value="${autor != null ? autor.nombreAutor : ''}"
+                                                   required>
                                         </div>
                 
                                         <!-- Campo: apellido -->
                                         <div class="col-md-6 mb-3">
-                                            <label for="apellido" class="form-label">Apellido</label>
-                                            <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Ingresa el apellido" required>
+                                            <label for="apellidoAutor" class="form-label">Apellido</label>
+                                            <input type="text" class="form-control" id="apellidoAutor" name="apellidoAutor" placeholder="Ingresa el apellido"
+                                                   th:value="${autor != null ? autor.apellidoAutor : ''}"
+                                                   required>
                                         </div>
                                     </div>
                                     
                                     <div class="row">
                                         <!-- Campo: Fecha de Nacimiento -->
                                         <div class="col-md-6 mb-3">
-                                            <label for="correo" class="form-label">Fecha de Nacimiento</label>
-                                            <input type="email" class="form-control" id="correo" name="correo" placeholder="correo@ejemplo.com" required>
+                                            <label for="fechaNacAutor" class="form-label">Fecha de Nacimiento</label>
+                                            <input type="date" class="form-control" id="fechaNacAutor" name="fechaNacAutor" placeholder="Ingrese su fecha de nacimiento"
+                                                   th:value="${autor != null ? autor.fechaNacAutor : ''}"
+                                                   required>
                                         </div>
                 
                                         <!-- Campo: Nacionalidad -->
                                         <div class="col-md-6 mb-3">
-                                            <label for="edad" class="form-label">Nacionalidad</label>
-                                            <input type="number" class="form-control" id="edad" name="edad" placeholder="Ingresa la edad" min="18" required>
+                                            <label for="nacionalidad" class="form-label">Nacionalidad</label>
+                                            <input type="text" class="form-control" id="nacionalidad" name="nacionalidad" placeholder="Ingresa la nacionalidad" min="18"
+                                                   th:value="${autor != null ? autor.nacionalidad : ''}"
+                                                   required>
                                         </div>
                                     </div>
                 
                                     <div class="row">
                                         <!-- Campo: Genero literario -->
                                         <div class="col-md-6 mb-3">
-                                            <label for="iss" class="form-label">Genero Literario</label>
-                                            <input type="text" class="form-control" id="iss" name="iss" placeholder="Número de seguro social" required>
+                                            <label for="generoLiteraio" class="form-label">Genero Literario</label>
+                                            <input type="text" class="form-control" id="generoLiteraio" name="generoLiteraio" placeholder="Ingrese su genero literario"
+                                                   th:value="${autor != null ? autor.generoLiteraio : ''}"
+                                                   required>
                                         </div>
                                     </div>
                 
@@ -135,8 +145,9 @@
                                     <div class="mt-4">
                                         <button type="submit" class="btn btn-primary">Guardar</button>
                                         <button type="reset" class="btn btn-secondary">Limpiar</button>
-                                        <a href="GestionarAutor.html" class="btn btn-danger">Cancelar</a>
+                                        <a th:href="@{/gestionar-autores}" class="btn btn-danger">Cancelar</a>
                                     </div>
+                                    <input type="hidden" name="idAutor" th:value="${autor != null ? autor.idAutor : ''}">
                                 </form>
                             </div>
                         </div>

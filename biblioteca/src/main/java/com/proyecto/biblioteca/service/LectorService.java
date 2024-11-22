@@ -2,7 +2,6 @@ package com.proyecto.biblioteca.service;
 
 import com.proyecto.biblioteca.dto.LectorDireccionDTO;
 import com.proyecto.biblioteca.entity.Direccion;
-import com.proyecto.biblioteca.entity.Empleado;
 import com.proyecto.biblioteca.entity.Lector;
 import com.proyecto.biblioteca.repository.LectorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,17 +23,17 @@ public class LectorService {
 
     public Lector guardarLector(LectorDireccionDTO lectorDTO){
         Direccion direccion = this.direccionService.guardarDireccion(lectorDTO.getDireccion());
-        lectorDTO.setDireccion(direccion);
+        lectorDTO.getLector().setDireccion(direccion);
         return this.lectorRepository.save(lectorDTO.getLector());
     }
 
-    public Lector obtenerEmpleado(Long id){
+    public Lector obtenerLector(Long id){
         return this.lectorRepository.findById(id).orElseThrow(() -> new RuntimeException("LECTOR NO IDENTIFICADO"));
     }
 
-    public Lector actualizarAutor(LectorDireccionDTO lectorDireccionDTO){
+    public Lector actualizarLector(LectorDireccionDTO lectorDireccionDTO){
         Direccion direccion = this.direccionService.actualizarDireccion(lectorDireccionDTO.getDireccion());
-        lectorDireccionDTO.setDireccion(direccion);
+        lectorDireccionDTO.getLector().setDireccion(direccion);
         Lector lectorActualizado = lectorDireccionDTO.getLector();
         return this.lectorRepository.save(this.lectorRepository.findById(lectorActualizado.getIdLector())
                 .map(lector -> {
@@ -48,7 +47,7 @@ public class LectorService {
                 }).orElseThrow(() -> new RuntimeException("LECTOR NO IDENTIFICADO")));
     }
 
-    public void eliminarEmpleado(Long id){
+    public void eliminarLector(Long id){
         this.lectorRepository.findById(id).ifPresentOrElse(
                 lector -> {
                     Long idDireccion = lector.getDireccion().getIdDireccion();
@@ -59,11 +58,11 @@ public class LectorService {
         );
     }
 
-    public List<Lector> listaEmpleados(){
+    public List<Lector> listaLectores(){
         return this.lectorRepository.findAll();
     }
 
-    public Page<Lector> listaPageableEmpleados(int page, int size){
+    public Page<Lector> listaPageableLectores(int page, int size){
         Pageable pageable = PageRequest.of(page, size);
         return this.lectorRepository.findAll(pageable);
     }

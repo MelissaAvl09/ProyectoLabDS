@@ -15,7 +15,7 @@ public class AutorService {
     @Autowired
     private AutorRepository autorRepository;
 
-    public Autor guardarAutor(Autor autor){
+    public Autor agregarAutor(Autor autor){
         return this.autorRepository.save(autor);
     }
 
@@ -35,7 +35,7 @@ public class AutorService {
                 }).orElseThrow(() -> new RuntimeException("AUTOR NO IDENTIFICADO")));
     }
 
-    public void eliminarEmpleado(Long id){
+    public void eliminarAutor(Long id){
         this.autorRepository.findById(id).ifPresentOrElse(
                 autor -> this.autorRepository.delete(autor),
                 () -> new RuntimeException("AUTOR NO IDENTIFICADO")

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -57,7 +57,7 @@
                             </a>
                             <div class="collapse" id="collapseEmpleados" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="GestionarEmpleado.html">Empleados</a>
+                                    <a class="nav-link" th:href="@{/gestionar-empleados}">Empleados</a>
                                     <a class="nav-link" href="GestionarUsuario.html">Usuarios</a>
                                 </nav>
                             </div>
@@ -71,8 +71,8 @@
                             <div class="collapse" id="collapseLibros" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="GestionarLibro.html">Libros</a>
-                                    <a class="nav-link" href="GestionarAutor.html">Autores</a>
-                                    <a class="nav-link" href="GestionarEditorial.html">Editoriales</a>
+                                    <a class="nav-link" th:href="@{/gestionar-autores}">Autores</a>
+                                    <a class="nav-link" th:href="@{/gestionar-editoriales}">Editoriales</a>
                                 </nav>
                             </div>
                         </div>                        
@@ -93,7 +93,7 @@
                         </ol>
                         <div class="col-xl-3 col-md-6">
                             <div class="text-white mb-4">
-                                <button type="button" class="btn btn-success">Agregar Autor</button>
+                                <a class="btn btn-success" th:href="@{/guardar-autor}">Agregar Autor</a>
                             </div>
                         </div>
                         <div class="card mb-4">
@@ -124,22 +124,24 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>Donna Snider</td>
-                                            <td>Customer Support</td>
-                                            <td>hants@gmail.com</td>
-                                            <td>29</td>
-                                            <td>2011/01/25</td>
+                                        <tr th:each="autor : ${listaAutores}">
+                                            <td th:text="${autor.nombreAutor}"></td>
+                                            <td th:text="${autor.apellidoAutor}"></td>
+                                            <td th:text="${autor.fechaNacAutor}"></td>
+                                            <td th:text="${autor.nacionalidad}"></td>
+                                            <td th:text="${autor.generoLiteraio}"></td>
                                             <td>
-                                                <button class="btn btn-danger btn-sm rounded-0" title="Eliminar">
+                                                <a  class="btn btn-danger btn-sm rounded-0" title="Eliminar"
+                                                    th:href="@{'/eliminar-autor/' + ${autor.idAutor}}">
                                                     <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                                <button class="btn btn-warning btn-sm rounded-0" title="Actualizar">
+                                                </a>
+                                                <a  class="btn btn-warning btn-sm rounded-0" title="Actualizar"
+                                                    th:href="@{'/actualizar-autor/' + ${autor.idAutor}}">
                                                     <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button class="btn btn-primary btn-sm rounded-0" title="Ver Más">
+                                                </a>
+                                                <a class="btn btn-primary btn-sm rounded-0" title="Ver Más">
                                                     <i class="fas fa-eye"></i>
-                                                </button>
+                                                </a>
                                             </td>
                                         </tr>
                                     </tbody>

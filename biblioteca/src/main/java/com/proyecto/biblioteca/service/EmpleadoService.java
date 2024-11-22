@@ -24,7 +24,7 @@ public class EmpleadoService {
 
     public Empleado guardarEmpleado(EmpleadoDireccionDTO empleadoDTO){
         Direccion direccion = this.direccionService.guardarDireccion(empleadoDTO.getDireccion());
-        empleadoDTO.setDireccion(direccion);
+        empleadoDTO.getEmpleado().setDireccion(direccion);
         return this.empleadoRepository.save(empleadoDTO.getEmpleado());
     }
 
@@ -32,9 +32,9 @@ public class EmpleadoService {
         return this.empleadoRepository.findById(id).orElseThrow(() -> new RuntimeException("AUTOR NO IDENTIFICADO"));
     }
 
-    public Empleado actualizarAutor(EmpleadoDireccionDTO empleadoDireccionDTO){
+    public Empleado actualizarEmpleado(EmpleadoDireccionDTO empleadoDireccionDTO){
         Direccion direccion = this.direccionService.actualizarDireccion(empleadoDireccionDTO.getDireccion());
-        empleadoDireccionDTO.setDireccion(direccion);
+        empleadoDireccionDTO.getEmpleado().setDireccion(direccion);
         Empleado empleadoActualizado = empleadoDireccionDTO.getEmpleado();
         return this.empleadoRepository.save(this.empleadoRepository.findById(empleadoActualizado.getIdEmpleado())
                 .map(empleado -> {

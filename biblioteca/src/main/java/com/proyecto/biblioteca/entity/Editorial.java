@@ -28,7 +28,7 @@ public class Editorial {
 
     private String telefonoEditorial;
 
-    private LocalDate fundacionEditorial;
+    private String fundacionEditorial;
 
     @OneToMany(mappedBy = "editorial", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Libro> listaLibros;
