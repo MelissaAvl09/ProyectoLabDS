@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -23,6 +24,11 @@ public class Autor{
 
     private String apellidoAutor;
 
+    private LocalDate fechaNacAutor;
+
+    private String nacionalidad;
+
+    private String generoLiteraio;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "autor")
     List<AutoresLibros> listaAutoresLibros;

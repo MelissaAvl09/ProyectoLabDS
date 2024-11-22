@@ -17,15 +17,17 @@ import java.util.List;
 public class Lector {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idLectores;
+    private Long idLector;
+
+    private String nombreLector;
+
+    private String apellidoLector;
 
     private String duiLector;
 
     private String telefonoLector;
 
-    private String nombreLector;
-
-    private String apellidoLector;
+    private String emailLector;
 
     @ManyToOne
     @JoinColumn(name = "id_direccion")

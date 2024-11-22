@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -19,7 +20,15 @@ public class Editorial {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idEditorial;
 
-    private String editorial;
+    private String nombreEditorial;
+
+    private String paisEditorial;
+
+    private String emailEditorial;
+
+    private String telefonoEditorial;
+
+    private LocalDate fundacionEditorial;
 
     @OneToMany(mappedBy = "editorial", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Libro> listaLibros;
